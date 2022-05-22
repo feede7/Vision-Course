@@ -1,0 +1,3 @@
+[submodule "FPGA-Vision"]
+	path = FPGA-Vision
+	url = https://github.com/Marco-Winzker/FPGA-Vision
