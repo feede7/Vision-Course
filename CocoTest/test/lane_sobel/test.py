@@ -7,7 +7,9 @@ CLK_PERIOD = 10  # ns
 
 
 async def Reset(dut):
-    dut.reset.valu = 1
+    dut.reset.value = 1
+    dut.de_in.value = 0
+    dut.data_in.value = 0
     await Timer(CLK_PERIOD * 10, units='ns')
     dut.reset.value = 0
     await Timer(CLK_PERIOD * 10, units='ns')
