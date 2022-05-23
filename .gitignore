@@ -2,3 +2,4 @@ CocoTest/test/*/__pycache__/
 CocoTest/test/*/results.xml
 CocoTest/test/*/sim_build/
 CocoTest/test/*/waveform_*.vcd
+*_out.bmp
