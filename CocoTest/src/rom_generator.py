@@ -2,8 +2,9 @@ from csv import reader
 from os import environ
 
 HOME = environ['HOME']
-MIF_FILE = HOME + '/VisionCourse/FPGA-Vision/FPGA-Design/lane_g_root.mif'
-OUT_FILE = HOME + '/VisionCourse/CocoTest/src/lane_g_root_IP.vhd'
+REPO_PATH = HOME + '/Documents/Vision-Course'
+MIF_FILE = '/FPGA-Vision/FPGA-Design/lane_g_root.mif'
+OUT_FILE = '/CocoTest/src/lane_g_root_IP.vhd'
 LINES_TO_SCAPE = 5
 with open(MIF_FILE, newline='') as csvfile:
     content = reader(csvfile, delimiter='\t')
