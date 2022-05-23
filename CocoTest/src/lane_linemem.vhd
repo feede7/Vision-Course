@@ -21,6 +21,7 @@ architecture behave of lane_linemem is
 
   type ram_array is array (0 to 1279) of std_logic_vector(23 downto 0);
   signal ram : ram_array;
+  signal out_enable : std_logic;
 
 begin
 
@@ -34,13 +35,17 @@ begin
       wr_address := 0;
       rd_address := 1;
       data_out <= (others => '0');
+      out_enable <= '0';
     else
       if (write_en = '1') then
-        data_out        <= ram(rd_address);
+        if (out_enable = '1') then
+          data_out        <= ram(rd_address);
+        end if;
         ram(wr_address) <= data_in;
         wr_address := rd_address;
         if (rd_address = 1279) then
           rd_address := 0;
+          out_enable <= '1';
         else
           rd_address := rd_address + 1;
         end if;
