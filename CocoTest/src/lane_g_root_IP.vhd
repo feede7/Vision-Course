@@ -16403,7 +16403,7 @@ begin
       when "1111111111101" => q_unbuf <= my_rom(8189);
       when "1111111111110" => q_unbuf <= my_rom(8190);
       when "1111111111111" => q_unbuf <= my_rom(8191);
-      when others => q_unbuf <= "00000000";
+      when others => q_unbuf <= (others => '1');
      end case;
   end process;
 

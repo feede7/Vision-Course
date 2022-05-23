@@ -3,8 +3,8 @@ from os import environ
 
 HOME = environ['HOME']
 REPO_PATH = HOME + '/Documents/Vision-Course'
-MIF_FILE = '/FPGA-Vision/FPGA-Design/lane_g_root.mif'
-OUT_FILE = '/CocoTest/src/lane_g_root_IP.vhd'
+MIF_FILE = REPO_PATH + '/FPGA-Vision/FPGA-Design/lane_g_root.mif'
+OUT_FILE = REPO_PATH + '/CocoTest/src/lane_g_root_IP.vhd'
 LINES_TO_SCAPE = 5
 with open(MIF_FILE, newline='') as csvfile:
     content = reader(csvfile, delimiter='\t')
@@ -46,7 +46,7 @@ file.write("   begin\n")
 file.write("     case address is\n")
 for i in range(len(bin_add)):
     file.write(f"      when \"{bin_add[i]}\" => q_unbuf <= my_rom({i});\n")
-file.write("      when others => q_unbuf <= \"00000000\";\n")
+file.write("      when others => q_unbuf <= (others => '1');\n")
 file.write("     end case;\n")
 file.write("  end process;\n")
 file.write("\n")
@@ -57,3 +57,4 @@ file.write("    q <= q_unbuf;\n")
 file.write("  end process;\n")
 file.write("\n")
 file.write("end architecture behavioral;\n")
+file.close()
