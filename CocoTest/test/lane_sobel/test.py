@@ -159,7 +159,7 @@ async def test_filter(dut, filter_name, img_name):
 
     fork(send_image(dut, flat_image))
 
-    await RisingEdge(dut.de_in)
+    await RisingEdge(dut.de_in_r)
 
     for _ in range(CORE_LATENCY-3):
         await RisingEdge(dut.clk)
