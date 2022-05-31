@@ -29,7 +29,7 @@ architecture behave of lane_sobel is
             --   X      (top)    tap_lt     tap_ct     tap_rt
             --   |   (center)    tap_lc     tap_cc     tap_rc
             --   v   (bottom)    tap_lb     tap_cb     tap_rb
-  signal g_x_2, g_y_2           : integer range 0 to 268435456;
+  signal g_x_2, g_y_2           : integer range 0 to 268435455;
   signal g_sum_2                : integer range 0 to 262143;
 
   signal g2_limit   : std_logic_vector(12 downto 0);
@@ -109,7 +109,7 @@ begin
     end if;
   end process;
 
-  square_root : entity work.lane_g_root_IP  -- 255 minus square-root of 8*g_sum_2
+  square_root : entity work.lane_g_root_IP  -- 255 minus square-root of 8*g2_limit
     port map (clock   => clk,
               address => g2_limit,
               q       => lum_new);
