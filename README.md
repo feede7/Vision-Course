@@ -30,7 +30,7 @@ make
 Or with pipeline cleaning
 
 ```
-rm -r results.xml sim_build/ __pycache__/; time make
+rm -r results.xml sim_build/ __pycache__/ waveform_sobel.vcd; make
 ```
 
 This command will test the 3 images in `FPGA-Vision/Test_Images`
