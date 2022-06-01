@@ -20,25 +20,26 @@ end lane_sobel;
 
 architecture behave of lane_sobel is
 
-
+  signal tap_rb : std_logic_vector(11 downto 0);
   signal tap_lt, tap_ct, tap_rt,
          tap_lc, tap_cc, tap_rc,
-         tap_lb, tap_cb, tap_rb : std_logic_vector(11 downto 0);
+         tap_lb, tap_cb : std_logic_vector(9 downto 0);
             -- 3x3 image region
             --     Y->           (left)    (center)    (right)
             --   X      (top)    tap_lt     tap_ct     tap_rt
             --   |   (center)    tap_lc     tap_cc     tap_rc
             --   v   (bottom)    tap_lb     tap_cb     tap_rb
-  signal g_x_2, g_y_2           : integer range 0 to 268435455;
-  signal g_sum_2                : integer range 0 to 262143;
+  signal g_x_2, g_y_2           : integer range 0 to 16777215; -- 24 bits
+  signal g_sum_2                : integer range 0 to 4095; -- 12 bits
 
-  signal g2_limit   : std_logic_vector(12 downto 0);
+  signal g2_limit   : std_logic_vector(11 downto 0);
   signal lum_new    : std_logic_vector(7 downto 0);
 
   signal de_in_r    : std_logic;
 
   function rgb2y (vec : std_logic_vector(23 downto 0)) return std_logic_vector is
     variable result : integer range  0 to  4095;
+    variable completed : std_logic_vector(12 downto 0);
   begin
     -- convert RGB to luminance: Y (5*R + 9*G + 2*B)
     result := 5*to_integer(unsigned(vec(23 downto 16)))
@@ -52,7 +53,7 @@ begin
   process
   begin
     wait until rising_edge(clk);
-    
+
     if (reset = '1') then
       tap_rb  <= (others => '0');
       de_in_r <= '0';
@@ -69,7 +70,7 @@ begin
     port map (clk      => clk,
               reset    => reset,
               write_en => de_in_r,
-              data_in  => tap_rb,
+              data_in  => tap_rb(11 downto 2),
               data_out => tap_rc);
   mem_1 : entity work.lane_linemem
     port map (clk      => clk,
@@ -88,7 +89,7 @@ begin
     tap_lt <= tap_ct;
     tap_cc <= tap_rc;
     tap_lc <= tap_cc;
-    tap_cb <= tap_rb;
+    tap_cb <= tap_rb(11 downto 2);
     tap_lb <= tap_cb;
   end process;
 
@@ -98,7 +99,7 @@ begin
               reset    => reset,
               in_p1a   => tap_rt,
               in_p2    => tap_rc,
-              in_p1b   => tap_rb,
+              in_p1b   => tap_rb(11 downto 2),
               in_m1a   => tap_lt,
               in_m2    => tap_lc,
               in_m1b   => tap_lb,
@@ -112,7 +113,7 @@ begin
               in_p1b   => tap_rt,
               in_m1a   => tap_lb,
               in_m2    => tap_cb,
-              in_m1b   => tap_rb,
+              in_m1b   => tap_rb(11 downto 2),
               data_out => g_y_2);
 
   process
@@ -125,10 +126,10 @@ begin
     -- limiting and invoking ROM for square-root
     if (reset = '1') then
       g2_limit <= (others => '0');
-    elsif (g_sum_2 > 8191) then
+    elsif (g_sum_2 > 4095) then -- 12 bits of g_limit
       g2_limit <= (others => '1');
     else
-      g2_limit <= std_logic_vector(to_unsigned(g_sum_2, 13));
+      g2_limit <= std_logic_vector(to_unsigned(g_sum_2, 12));
     end if;
   end process;
 
