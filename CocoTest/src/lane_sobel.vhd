@@ -23,7 +23,7 @@ architecture behave of lane_sobel is
 
   signal tap_lt, tap_ct, tap_rt,
          tap_lc, tap_cc, tap_rc,
-         tap_lb, tap_cb, tap_rb : std_logic_vector(23 downto 0);
+         tap_lb, tap_cb, tap_rb : std_logic_vector(11 downto 0);
             -- 3x3 image region
             --     Y->           (left)    (center)    (right)
             --   X      (top)    tap_lt     tap_ct     tap_rt
@@ -35,23 +35,46 @@ architecture behave of lane_sobel is
   signal g2_limit   : std_logic_vector(12 downto 0);
   signal lum_new    : std_logic_vector(7 downto 0);
 
+  signal de_in_r    : std_logic;
+
+  function rgb2y (vec : std_logic_vector(23 downto 0)) return std_logic_vector is
+    variable result : integer range  0 to  4095;
+  begin
+    -- convert RGB to luminance: Y (5*R + 9*G + 2*B)
+    result := 5*to_integer(unsigned(vec(23 downto 16)))
+            + 9*to_integer(unsigned(vec(15 downto  8)))
+            + 2*to_integer(unsigned(vec( 7 downto  0)));
+  return std_logic_vector(to_unsigned(result, 12));
+  end function;
 
 begin
 
-  -- current input pixel is right-bottom (rb)
-  tap_rb <= data_in;
+  process
+  begin
+    wait until rising_edge(clk);
+    
+    if (reset = '1') then
+      tap_rb  <= (others => '0');
+      de_in_r <= '0';
+      else
+      -- current input pixel is right-bottom (rb)
+      tap_rb  <= rgb2y(data_in); -- convert RGB to Y with VHDL-function
+      de_in_r <= de_in;
+    end if;
+
+  end process;
 
   -- two line memories: output is right-center (rc) and right-top (rt)
   mem_0 : entity work.lane_linemem
     port map (clk      => clk,
               reset    => reset,
-              write_en => de_in,
+              write_en => de_in_r,
               data_in  => tap_rb,
               data_out => tap_rc);
   mem_1 : entity work.lane_linemem
     port map (clk      => clk,
               reset    => reset,
-              write_en => de_in,
+              write_en => de_in_r,
               data_in  => tap_rc,
               data_out => tap_rt);
 
