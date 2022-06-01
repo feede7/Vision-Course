@@ -18,10 +18,6 @@ git submodule init
 git submodule update
 ```
 
-### Possible improvement
-
-Now this repo is thought for cloning it into `$HOME/Documents`
-
 ### Run a lane_sobel test
 
 ```
@@ -72,7 +68,6 @@ make
 
 To ensure cleaning process, it's recomended to do this everytime you
 change something
-
 
 ```
 rm Makefile; hdlmake && make clean && make
