@@ -2,21 +2,21 @@ from cocotb import fork
 from cocotb.clock import Clock
 from cocotb.triggers import Timer, RisingEdge
 from cocotb.regression import TestFactory as TF
-from os import environ, path
+from os import path
 from PIL import Image
 import numpy as np
 from cv2 import getDerivKernels
 
-HOME = environ['HOME']
 REPO_PATH = '../../..'
 IMG_PATH = path.join(REPO_PATH, 'FPGA-Vision/Test_Images')
 OUT_PATH = path.join(REPO_PATH, 'CocoTest/test/lane_sobel')
 
 CLK_PERIOD = 10  # ns
-SQ_LIMIT = 14*2
+Y_FACTOR = 10
+SQ_LIMIT = 12*2
 SQ_SUM_FACTOR = 13
-SQ_SUM_LIMIT = 18
-MAX_SUM_LIMIT = (1 << SQ_SUM_FACTOR) - 1
+SQ_SUM_LIMIT = 12
+MAX_SUM_LIMIT = (1 << SQ_SUM_LIMIT) - 1
 
 
 async def Reset(dut):
@@ -49,6 +49,7 @@ def rgb_2_y(image):
     G = image_u16[:, :, 1]
     B = image_u16[:, :, 0]
     y = 5*R + 9*G + 2*B
+    y = (y >> 2) % (1 << Y_FACTOR)
     assert y.dtype == 'uint16', f'y.dtype: {y.dtype}'
     return y
 

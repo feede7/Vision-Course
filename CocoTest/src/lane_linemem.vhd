@@ -13,13 +13,13 @@ entity lane_linemem is
   port (clk      : in  std_logic;
         reset    : in  std_logic;
         write_en : in  std_logic;
-        data_in  : in  std_logic_vector(11 downto 0);
-        data_out : out std_logic_vector(11 downto 0));
+        data_in  : in  std_logic_vector(9 downto 0);
+        data_out : out std_logic_vector(9 downto 0));
 end lane_linemem;
 
 architecture behave of lane_linemem is
 
-  type ram_array is array (0 to 1279) of std_logic_vector(11 downto 0);
+  type ram_array is array (0 to 1279) of std_logic_vector(9 downto 0);
   signal ram : ram_array;
   signal out_enable : std_logic;
 

@@ -12,23 +12,23 @@ use IEEE.NUMERIC_STD.ALL;
 entity lane_g_matrix is
   port ( clk       : in  std_logic;
          reset     : in  std_logic;
-         in_p1a    : in  std_logic_vector(11 downto 0);
-         in_p2     : in  std_logic_vector(11 downto 0);
-         in_p1b    : in  std_logic_vector(11 downto 0);
-         in_m1a    : in  std_logic_vector(11 downto 0);
-         in_m2     : in  std_logic_vector(11 downto 0);
-         in_m1b    : in  std_logic_vector(11 downto 0);
-         data_out  : out integer range 0 to 268435455);
+         in_p1a    : in  std_logic_vector(9 downto 0);
+         in_p2     : in  std_logic_vector(9 downto 0);
+         in_p1b    : in  std_logic_vector(9 downto 0);
+         in_m1a    : in  std_logic_vector(9 downto 0);
+         in_m2     : in  std_logic_vector(9 downto 0);
+         in_m1b    : in  std_logic_vector(9 downto 0);
+         data_out  : out integer range 0 to 16777215); -- 24 bits
 end lane_g_matrix;
 
 architecture behave of lane_g_matrix is
-signal   lum_p1a      : integer range  0 to  4095;
-signal   lum_p2       : integer range  0 to  4095;
-signal   lum_p1b      : integer range  0 to  4095;
-signal   lum_m1a      : integer range  0 to  4095;
-signal   lum_m2       : integer range  0 to  4095;
-signal   lum_m1b      : integer range  0 to  4095;
-signal   sum          : integer range -16383 to 16383;
+signal   lum_p1a      : integer range  0 to  1023;
+signal   lum_p2       : integer range  0 to  1023;
+signal   lum_p1b      : integer range  0 to  1023;
+signal   lum_m1a      : integer range  0 to  1023;
+signal   lum_m2       : integer range  0 to  1023;
+signal   lum_m1b      : integer range  0 to  1023;
+signal   sum          : integer range -4095 to 4095;
 
 begin
 
