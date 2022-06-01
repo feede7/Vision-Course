@@ -1,5 +1,6 @@
 from csv import reader
 from os import environ
+import numpy as np
 
 HOME = environ['HOME']
 REPO_PATH = HOME + '/Documents/Vision-Course'
@@ -20,6 +21,11 @@ with open(MIF_FILE, newline='') as csvfile:
         i += 1
 bin_add = [format(v, '013b') for v in add]
 bin_value = [format(v, '08b') for v in value]
+
+# Check content
+for i, ADDRESS in enumerate(add):
+    assert i == ADDRESS
+    assert value[ADDRESS] == 255-np.uint8(np.sqrt(8*ADDRESS))
 
 file = open(OUT_FILE, "w")
 file.write("-- Custom Vendorless ROM\n")

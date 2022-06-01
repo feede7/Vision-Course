@@ -18,7 +18,7 @@ entity lane_g_matrix is
          in_m1a    : in  std_logic_vector(23 downto 0);
          in_m2     : in  std_logic_vector(23 downto 0);
          in_m1b    : in  std_logic_vector(23 downto 0);
-         data_out  : out integer range 0 to 268435456);
+         data_out  : out integer range 0 to 268435455);
 end lane_g_matrix;
 
 architecture behave of lane_g_matrix is
@@ -57,13 +57,13 @@ begin
     lum_m1a   <= rgb2y(in_m1a);   -- minus 1
     lum_m2    <= rgb2y(in_m2);    -- minus 2
     lum_m1b   <= rgb2y(in_m1b);   -- minus 1
-  
+
     -- add values according to sobel matrix
     --         |-1  0  1|      | 1  2  1|
     --         |-2  0  2|  or  | 0  0  0|
     --         |-1  0  1|      |-1 -2 -1|
     sum   <=  lum_p1a + 2*lum_p2 + lum_p1b - lum_m1a - 2*lum_m2 - lum_m1b;
-  
+
     -- square of sum
     data_out <= sum*sum;
   end if;
