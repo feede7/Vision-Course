@@ -2,15 +2,15 @@ from cocotb import fork
 from cocotb.clock import Clock
 from cocotb.triggers import Timer, RisingEdge
 from cocotb.regression import TestFactory as TF
-from os import environ
+from os import environ, path
 from PIL import Image
 import numpy as np
 from cv2 import getDerivKernels
 
 HOME = environ['HOME']
-REPO_PATH = HOME + '/Documents/Vision-Course'
-IMG_PATH = REPO_PATH + '/FPGA-Vision/Test_Images/'
-OUT_PATH = REPO_PATH + '/CocoTest/test/lane_sobel/'
+REPO_PATH = '../../..'
+IMG_PATH = path.join(REPO_PATH, 'FPGA-Vision/Test_Images')
+OUT_PATH = path.join(REPO_PATH, 'CocoTest/test/lane_sobel')
 
 CLK_PERIOD = 10  # ns
 SQ_LIMIT = 14*2
@@ -143,7 +143,7 @@ async def test_filter(dut, filter_name, img_name):
 
     CORE_LATENCY = 7
 
-    test_image = IMG_PATH + img_name
+    test_image = path.join(IMG_PATH, img_name)
     image = np.array(Image.open(test_image), dtype=np.uint8)
     height, width, _ = image.shape
 
@@ -215,7 +215,8 @@ async def test_filter(dut, filter_name, img_name):
     validate_matrix(kernel.shape[0], output, output_target)
 
     im = Image.fromarray(output)
-    im.save(OUT_PATH + img_name.replace('.bmp', f'_{filter_name}_out.bmp'))
+    im.save(path.join(OUT_PATH,
+                      img_name.replace('.bmp', f'_{filter_name}_out.bmp')))
 
 
 tf_sobel = TF(test_filter)
