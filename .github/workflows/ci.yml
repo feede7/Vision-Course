@@ -1,0 +1,78 @@
+name: build-openlane-sky130
+on: [push]
+
+jobs:
+  test-lane-sobel:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - shell: bash
+        run: |
+          echo "Submodules"
+          echo $GITHUB_WORKSPACE
+          git submodule init
+          git submodule update
+          tree $GITHUB_WORKSPACE
+      - shell: bash
+        run: |
+          echo "Dependencies"
+          sudo apt install ghdl
+          pip3 install cocotb pillow numpy opencv-python
+      - shell: bash
+        working-directory: ./CocoTest/test/lane_sobel
+        run: |
+          echo "Run Tests"
+          make
+
+  hdlmake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - shell: bash
+        run: |
+          echo "Submodules"
+          echo $GITHUB_WORKSPACE
+          git submodule init
+          git submodule update
+          tree $GITHUB_WORKSPACE
+      - shell: bash
+        run: |
+          echo "Dependencies"
+          pip3 install hdlmake
+      - shell: bash
+        working-directory: ./CocoTest/project/lane_sobel/C4
+        run: |
+          hdlmake
+      - name: Upload files
+        uses: actions/upload-artifact@v3
+        with:
+          name: hdlmake-files
+          path: |
+            ./CocoTest/project/lane_sobel/C4/Makefile
+            ./FPGA-Vision/FPGA-Design/*
+
+  bitstream:
+    runs-on: ubuntu-latest
+    container: feede7/quartus-lite:latest
+    needs: hdlmake
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Download hdlmake-files
+        uses: actions/download-artifact@v3
+        with:
+          name: hdlmake-files
+      - shell: bash
+        working-directory: ./CocoTest/project/lane_sobel/C4
+        run: |
+          export PATH=$PATH:/opt/intelFPGA_lite/18.1/quartus/bin
+          echo "Build!"
+          make
+      - name: Upload files
+        uses: actions/upload-artifact@v3
+        with:
+          name: sof-file
+          path: |
+            ./CocoTest/project/lane_sobel/C4/lane.sof
