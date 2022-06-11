@@ -40,8 +40,7 @@ jobs:
       - shell: bash
         run: |
           echo "Dependencies"
-          sudo apt install hdlmake
-      - run: pip3 install hdlmake
+          pip3 install hdlmake
       - shell: bash
         working-directory: ./CocoTest/project/lane_sobel/C4
         run: |
