@@ -1,12 +1,12 @@
-FROM ubuntu:20.04
+FROM debian:buster-slim
 
-RUN apt-get update && apt-get install -y aria2 make
+RUN apt-get update && apt-get install -y aria2 make git python python3
 
 WORKDIR /root
 
 RUN git clone --depth 1 https://github.com/dcaruso/quartus-install.git
 
-RUN quartus-install/quartus-install.py 18.1lite /opt/intelFPGA_lite/18.1 c4 c5 --prune --fix-libpng
+RUN quartus-install/quartus-install.py 18.1lite /opt/intelFPGA_lite/18.1 c4 c5 --prune
 RUN cd /opt/intelFPGA_lite/18.1/ && rm -rf logs \
             hls \
             nios2eds \

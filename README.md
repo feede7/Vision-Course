@@ -72,3 +72,10 @@ change something
 ```
 rm Makefile; hdlmake && make clean && make
 ```
+
+### Build Dockerfile to CI
+
+docker build -t quartus-lite .
+docker tag quartus-lite:latest feede7/quartus-lite:latest
+docker login
+docker push feede7/quartus-lite:latest

@@ -1,6 +1,0 @@
-# action.yml
-name: 'Quartus Image'
-description: 'Container with Quartus 18.1 Lite, including c4 and c5'
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
