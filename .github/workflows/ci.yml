@@ -4,12 +4,13 @@ on: [push]
 jobs:
   test-lane-sobel:
     runs-on: ubuntu-latest
+    container: theypsilon/quartus-lite-c5:18.1.docker0
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
       - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
       - run: echo $GITHUB_WORKSPACE
-      - run: sudo apt install ghdl tree
+      - run: sudo apt install ghdl
       - run: pip3 install cocotb pillow numpy opencv-python
       - run: git submodule init
       - run: git submodule update
