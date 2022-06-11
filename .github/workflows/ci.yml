@@ -7,11 +7,10 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-        with:
-          path: CocoTest/test/lane_sobel
       - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
       - run: echo $GITHUB_WORKSPACE
       - run: pip3 install cocotb pillow numpy opencv-python
+      - run: cd ../CocoTest/test/lane_sobel
       - run: make
 
 
