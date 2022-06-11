@@ -9,10 +9,9 @@ jobs:
         uses: actions/checkout@v2
       - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
       - run: echo $GITHUB_WORKSPACE
+      - run: apt install ghdl tree
       - run: pip3 install cocotb pillow numpy opencv-python
-      - run: ls $GITHUB_WORKSPACE
-      - run: cd $GITHUB_WORKSPACE/CocoTest
-      - run: ls
+      - run: tree $GITHUB_WORKSPACE
       - run: make -C $GITHUB_WORKSPACE/CocoTest/test/lane_sobel
 
 
