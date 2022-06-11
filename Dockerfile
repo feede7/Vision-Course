@@ -22,4 +22,7 @@ RUN cd /opt/intelFPGA_lite/18.1/quartus/linux64/ && rm libstdc++.so.6  && ln -s 
 
 RUN rm -rf quartus-install
 
-ENV LD_PRELOAD=/usr/lib/libtcmalloc_minimal.so.4
+RUN apt-get install -y libglib2.0-0
+
+ENV LC_CTYPE=C
+ENV LC_NUMERIC=en_US.UTF-8
