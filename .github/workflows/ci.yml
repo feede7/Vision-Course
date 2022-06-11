@@ -23,7 +23,7 @@ jobs:
         working-directory: ./CocoTest/test/lane_sobel
         run: |
           echo "Run Tests"
-          make
+          echo "make"
 
   hdlmake:
     runs-on: ubuntu-latest
@@ -46,11 +46,10 @@ jobs:
         run: |
           hdlmake
       - name: Upload files
-        # working-directory: ./CocoTest/project/lane_sobel/C4
         uses: actions/upload-artifact@v3
         with:
           name: hdlmake-files
-          path: Makefile
+          path: $GITHUB_WORKSPACE/CocoTest/project/lane_sobel/C4/Makefile
 
   # bitstream:
   #   runs-on: ubuntu-latest
