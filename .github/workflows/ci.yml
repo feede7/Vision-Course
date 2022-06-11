@@ -11,6 +11,8 @@ jobs:
       - run: echo $GITHUB_WORKSPACE
       - run: sudo apt install ghdl tree
       - run: pip3 install cocotb pillow numpy opencv-python
+      - run: git submodule init
+      - run: git submodule update
       - run: tree $GITHUB_WORKSPACE
       - run: make -C $GITHUB_WORKSPACE/CocoTest/test/lane_sobel
 
