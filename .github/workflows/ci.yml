@@ -10,15 +10,15 @@ jobs:
       - shell: bash
         run: |
           echo "Submodules"
+          echo $GITHUB_WORKSPACE
           git submodule init
           git submodule update
+          tree $GITHUB_WORKSPACE
       - shell: bash
         run: |
           echo "Dependencies"
-          echo $GITHUB_WORKSPACE
           sudo apt install ghdl
           pip3 install cocotb pillow numpy opencv-python
-          tree $GITHUB_WORKSPACE
       - shell: bash
         working-directory: ./CocoTest/test/lane_sobel
         run: |
@@ -30,9 +30,18 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+      - shell: bash
+        run: |
+          echo "Submodules"
+          echo $GITHUB_WORKSPACE
+          git submodule init
+          git submodule update
+          tree $GITHUB_WORKSPACE
+      - shell: bash
+        run: |
+          echo "Dependencies"
+          sudo apt install hdlmake
       - run: pip3 install hdlmake
-      - run: git submodule init
-      - run: git submodule update
       - shell: bash
         working-directory: ./CocoTest/project/lane_sobel/C4
         run: |
