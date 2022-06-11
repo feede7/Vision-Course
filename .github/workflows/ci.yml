@@ -63,7 +63,7 @@ jobs:
         with:
           name: hdlmake-files
       - shell: bash
-        working-directory: ./CocoTest/project/lane_sobel_C4
+        working-directory: ./CocoTest/project/lane_sobel/C4
         run: |
           echo "Build!"
           echo make
