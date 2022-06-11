@@ -11,9 +11,9 @@ jobs:
       - run: echo $GITHUB_WORKSPACE
       - run: pip3 install cocotb pillow numpy opencv-python
       - run: ls $GITHUB_WORKSPACE
-      - run: ls $GITHUB_WORKSPACE/..
-      - run: cd $GITHUB_WORKSPACE/../CocoTest/test/lane_sobel
-      - run: make
+      - run: cd $GITHUB_WORKSPACE/CocoTest
+      - run: ls
+      - run: make -C $GITHUB_WORKSPACE/CocoTest/test/lane_sobel
 
 
 # example from: https://github.com/secworks/sha256
