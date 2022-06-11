@@ -58,13 +58,6 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-      - shell: bash
-        run: |
-          echo "Submodules"
-          echo $GITHUB_WORKSPACE
-          git submodule init
-          git submodule update
-          tree $GITHUB_WORKSPACE
       - name: Download hdlmake-files
         uses: actions/download-artifact@v3
         with:
