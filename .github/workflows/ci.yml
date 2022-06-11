@@ -46,7 +46,7 @@ jobs:
         run: |
           hdlmake
       - name: Upload files
-        working-directory: ./CocoTest/project/lane_sobel/C4
+        # working-directory: ./CocoTest/project/lane_sobel/C4
         uses: actions/upload-artifact@v3
         with:
           name: hdlmake-files
