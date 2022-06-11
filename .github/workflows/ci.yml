@@ -26,10 +26,11 @@ jobs:
       - run: echo $GITHUB_WORKSPACE
       - run: tree $GITHUB_WORKSPACE
       - run: pip3 install hdlmake
-      - run: hdlmake && make
+      - name: make
+        working-directory: ./CocoTest/project/lane_sobel_C4
+        run: hdlmake && make
 
 
-        # working-directory: ./CocoTest/project/lane_sobel/C4
 # example from: https://github.com/secworks/sha256
 # jobs:
 #   build-sha256:
