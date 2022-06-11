@@ -66,4 +66,4 @@ jobs:
         working-directory: ./CocoTest/project/lane_sobel/C4
         run: |
           echo "Build!"
-          echo make
+          make
