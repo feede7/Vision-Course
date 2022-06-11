@@ -13,10 +13,11 @@ jobs:
           git submodule update
       - shell: bash
         working-directory: ./CocoTest/test/lane_sobel
-        run: echo $GITHUB_WORKSPACE
-        run: sudo apt install ghdl
-        run: pip3 install cocotb pillow numpy opencv-python
-        run: tree $GITHUB_WORKSPACE
+        run: |
+          echo $GITHUB_WORKSPACE
+          sudo apt install ghdl
+          pip3 install cocotb pillow numpy opencv-python
+          tree $GITHUB_WORKSPACE
         # run: make -C $GITHUB_WORKSPACE/CocoTest/test/lane_sobel
 
   hdlmake:
