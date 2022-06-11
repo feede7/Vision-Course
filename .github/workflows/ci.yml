@@ -23,7 +23,7 @@ jobs:
         working-directory: ./CocoTest/test/lane_sobel
         run: |
           echo "Run Tests"
-          echo "make"
+          make
 
   hdlmake:
     runs-on: ubuntu-latest
