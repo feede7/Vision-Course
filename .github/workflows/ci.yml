@@ -63,8 +63,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: hdlmake-files
-      - shell: bash
+      - name: Docker stage
         uses: actions/Vision-Course@v1
+      - shell: bash
         working-directory: ./CocoTest/project/lane_sobel/C4
         run: |
           export PATH=$PATH:/opt/intelFPGA_lite/quartus/bin
