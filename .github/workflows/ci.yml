@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: hdlmake-files
-          path: $GITHUB_WORKSPACE/CocoTest/project/lane_sobel/C4/Makefile
+          path: ./CocoTest/project/lane_sobel/C4/Makefile
 
   # bitstream:
   #   runs-on: ubuntu-latest
