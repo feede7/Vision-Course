@@ -75,7 +75,17 @@ rm Makefile; hdlmake && make clean && make
 
 ### Build Dockerfile to CI
 
+```
 docker build -t quartus-lite .
 docker tag quartus-lite:latest feede7/quartus-lite:latest
 docker login
 docker push feede7/quartus-lite:latest
+```
+
+## Run into Docker!
+
+This point is to run everithing with Docker!
+
+```
+docker run -v $(pwd):/root/mounted -w /root/mounted -it quartus-lite:latest /bin/bash
+```
