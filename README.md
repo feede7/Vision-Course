@@ -84,7 +84,7 @@ docker push feede7/quartus-lite:latest
 
 ## Run into Docker!
 
-This point is to run everithing with Docker!
+This point is to run everything with Docker!
 
 ```
 docker run -v $(pwd):/root/mounted -w /root/mounted -it quartus-lite:latest /bin/bash
