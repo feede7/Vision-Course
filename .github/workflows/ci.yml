@@ -10,6 +10,8 @@ jobs:
       - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
       - run: echo $GITHUB_WORKSPACE
       - run: pip3 install cocotb pillow numpy opencv-python
+      - run: ls $GITHUB_WORKSPACE
+      - run: ls $GITHUB_WORKSPACE/..
       - run: cd $GITHUB_WORKSPACE/../CocoTest/test/lane_sobel
       - run: make
 
