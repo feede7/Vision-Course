@@ -7,21 +7,19 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-      - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
       - run: echo $GITHUB_WORKSPACE
       - run: sudo apt install ghdl
       - run: pip3 install cocotb pillow numpy opencv-python
       - run: git submodule init
       - run: git submodule update
       - run: tree $GITHUB_WORKSPACE
-      - run: make -C $GITHUB_WORKSPACE/CocoTest/test/lane_sobel
+      # - run: make -C $GITHUB_WORKSPACE/CocoTest/test/lane_sobel
 
   hdlmake:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
-      - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
       - run: pip3 install hdlmake
       - run: git submodule init
       - run: git submodule update
