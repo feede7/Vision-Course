@@ -1,9 +1,6 @@
 name: build-openlane-sky130
 on: [push]
 
-.python_dependencies: &python_dependencies
-  - run: echo "here you can install python things"
-
 jobs:
   build-image:
     runs-on: ubuntu-latest
@@ -14,7 +11,6 @@ jobs:
           path: Vision-Course
       - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
       - run: echo $GITHUB_WORKSPACE
-      - *python_dependencies
 
 # example from: https://github.com/secworks/sha256
 # jobs:
