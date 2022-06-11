@@ -2,7 +2,7 @@ name: build-openlane-sky130
 on: [push]
 
 jobs:
-  build-image:
+  test-lane-sobel:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -11,6 +11,10 @@ jobs:
           path: Vision-Course
       - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
       - run: echo $GITHUB_WORKSPACE
+      - run: pip3 install cocotb pillow numpy opencv-python
+      - run: cd $GITHUB_WORKSPACE/CocoTest/test/lane_sobel
+      - run: make
+
 
 # example from: https://github.com/secworks/sha256
 # jobs:
