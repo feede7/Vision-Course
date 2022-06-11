@@ -63,6 +63,18 @@ jobs:
         with:
           name: hdlmake-files
       - shell: bash
+        run: |
+          echo "Dependencies"
+          apt update
+          apt install make git tree
+      - shell: bash
+        run: |
+          echo "Submodules"
+          echo $GITHUB_WORKSPACE
+          git submodule init
+          git submodule update
+          tree $GITHUB_WORKSPACE
+      - shell: bash
         working-directory: ./CocoTest/project/lane_sobel/C4
         run: |
           echo "Build!"
