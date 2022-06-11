@@ -35,24 +35,24 @@ jobs:
           name: hdlmake-files
           path: Makefile
 
-  bitstream:
-    runs-on: ubuntu-latest
-    needs: hdlmake
-    container: theypsilon/quartus-lite-c5:18.1.docker0
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-      - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
-      - run: git submodule init
-      - run: git submodule update
-      - name: Download hdlmake-files
-        working-directory: ./CocoTest/project/lane_sobel/C4
-        uses: actions/download-artifact@v3
-        with:
-          name: hdlmake-files
-      - name: make
-        working-directory: ./CocoTest/project/lane_sobel_C4
-        run: make
+  # bitstream:
+  #   runs-on: ubuntu-latest
+  #   needs: hdlmake
+  #   container: theypsilon/quartus-lite-c5:18.1.docker0
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v2
+  #     - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
+  #     - run: git submodule init
+  #     - run: git submodule update
+  #     - name: Download hdlmake-files
+  #       working-directory: ./CocoTest/project/lane_sobel/C4
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: hdlmake-files
+  #     - name: make
+  #       working-directory: ./CocoTest/project/lane_sobel_C4
+  #       run: make
 
 
 # example from: https://github.com/secworks/sha256
