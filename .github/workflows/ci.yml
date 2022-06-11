@@ -68,7 +68,8 @@ jobs:
         run: |
           echo "Dependencies"
           apt update
-          apt install -y make git tree
+          apt install -y make
+          export PATH=$PATH:/opt/intelFPGA_lite/quartus/bin
       - shell: bash
         working-directory: ./CocoTest/project/lane_sobel/C4
         run: |
