@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM feede7/hdl-tools:latest
 
 RUN apt-get update && apt-get install -y aria2 make git python python3 libglib2.0-0
 

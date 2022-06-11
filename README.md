@@ -73,6 +73,31 @@ change something
 rm Makefile; hdlmake && make clean && make
 ```
 
+## Run with Docker!
+
+This point is to run everything with Docker! These toolas are perfect for
+every OS!
+
+### Run image with basic and test tools
+
+```
+docker run -v $(pwd):/root/mounted -w /root/mounted -it feede7/hdl-tools:latest /bin/bash
+```
+### Run image with Quartus support
+
+```
+docker run -v $(pwd):/root/mounted -w /root/mounted -it feede7/hdl-tools-quartus:latest /bin/bash
+```
+
+## Build Docker
+
+### Build Dockerfile to CI
+
+```
+docker build -t hdl-tools - < Dockerfile.tools
+docker build -t hdl-tools - < Dockerfile.tools-quartus
+```
+
 ### Build Dockerfile to CI
 
 ```
@@ -82,10 +107,3 @@ docker login
 docker push feede7/quartus-lite:latest
 ```
 
-## Run into Docker!
-
-This point is to run everything with Docker!
-
-```
-docker run -v $(pwd):/root/mounted -w /root/mounted -it quartus-lite:latest /bin/bash
-```
