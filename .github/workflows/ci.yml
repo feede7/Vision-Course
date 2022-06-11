@@ -70,3 +70,9 @@ jobs:
           export PATH=$PATH:/opt/intelFPGA_lite/18.1/quartus/bin
           echo "Build!"
           make
+      - name: Upload files
+        uses: actions/upload-artifact@v3
+        with:
+          name: sof-file
+          path: |
+            ./CocoTest/project/lane_sobel/C4/lane.sof
