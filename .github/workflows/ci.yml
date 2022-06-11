@@ -16,18 +16,18 @@ jobs:
       - run: tree $GITHUB_WORKSPACE
       - run: make -C $GITHUB_WORKSPACE/CocoTest/test/lane_sobel
 
-  build-quartus:
-    runs-on: ubuntu-latest
-    container: theypsilon/quartus-lite-c5:18.1.docker0
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-        working-directory: ./CocoTest/project/lane_sobel/C4
-      - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
-      - run: echo $GITHUB_WORKSPACE
-      - run: tree $GITHUB_WORKSPACE
-      - run: pip3 install hdlmake
-      - run: hdlmake && make
+  # build-quartus:
+  #   runs-on: ubuntu-latest
+  #   container: theypsilon/quartus-lite-c5:18.1.docker0
+  #   steps:
+  #     - name: Checkout repo
+  #       uses: actions/checkout@v2
+  #       working-directory: ./CocoTest/project/lane_sobel/C4
+  #     - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
+  #     - run: echo $GITHUB_WORKSPACE
+  #     - run: tree $GITHUB_WORKSPACE
+  #     - run: pip3 install hdlmake
+  #     - run: hdlmake && make
 
 
 # example from: https://github.com/secworks/sha256
