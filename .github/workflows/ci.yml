@@ -1,0 +1,31 @@
+name: build-openlane-sky130
+on: [push]
+
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          path: Vision-Course
+      - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
+      - run: echo $GITHUB_WORKSPACE
+
+# example from: https://github.com/secworks/sha256
+# jobs:
+#   build-sha256:
+#     runs-on: ubuntu-latest
+#     env:
+#       REPO : sha256
+#       VLNV : secworks:crypto:sha256
+#     steps:
+#       - name: Checkout repo
+#         uses: actions/checkout@v2
+#         with:
+#           path: sha256
+#       - run: echo "EDALIZE_LAUNCHER=el_docker" >> $GITHUB_ENV
+#       - run: pip3 install fusesoc
+#       - run: fusesoc library add $REPO $GITHUB_WORKSPACE/$REPO
+#       - run: fusesoc run --target=sky130 $VLNV
+
