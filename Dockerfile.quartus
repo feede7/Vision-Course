@@ -25,8 +25,4 @@ RUN cd /opt/intelFPGA_lite/${QUARTUS_VERSION}/quartus/linux64/ && rm libstdc++.s
 
 RUN rm -rf quartus-install
 
-# Solution from: https://community.intel.com/t5/Intel-Quartus-Prime-Software/Quartus-failed-to-run-inside-Docker-Linux/m-p/241059/highlight/true#M54719
-RUN apt-get install libtcmalloc-minimal4
-ENV LD_PRELOAD=/usr/lib/libtcmalloc_minimal.so.4
-
 ENV PATH=$PATH:/opt/intelFPGA_lite/${QUARTUS_VERSION}/quartus/bin
