@@ -1,0 +1,28 @@
+FROM debian:bullseye-slim
+
+RUN apt-get update && apt-get install -y \
+    make \
+    git \
+    python \
+    python3 \
+    python3-pip \
+    ghdl \
+    ffmpeg \
+    libsm6 \
+    libxext6
+
+RUN pip3 install -U setuptools
+RUN pip3 install -U scikit-build
+
+RUN pip3 install -U \
+    cocotb \
+    pillow \
+    numpy \
+    opencv-python \
+    hdlmake \
+    pytest \
+    six
+
+WORKDIR /root
+
+ENV COCOTB_REDUCED_LOG_FMT True

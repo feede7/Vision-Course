@@ -1,6 +1,7 @@
-FROM debian:stretch-slim
+# FROM feede7/hdl-tools:latest
+FROM hdl-tools:latest
 
-RUN apt-get update && apt-get install -y aria2 make git python python3 libglib2.0-0
+RUN apt-get update && apt-get install -y aria2 libglib2.0-0
 
 WORKDIR /root
 
@@ -27,6 +28,30 @@ RUN rm -rf quartus-install
 
 # Solution from: https://community.intel.com/t5/Intel-Quartus-Prime-Software/Quartus-failed-to-run-inside-Docker-Linux/m-p/241059/highlight/true#M54719
 RUN apt-get install libtcmalloc-minimal4
-ENV LD_PRELOAD=/usr/lib/libtcmalloc_minimal.so.4
+ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4
 
 ENV PATH=$PATH:/opt/intelFPGA_lite/${QUARTUS_VERSION}/quartus/bin
+
+# RUN apt-get update && \
+#     apt-get install -y bash-completion \
+#                        gcc \
+#                        clang \
+#                        g++ \
+#                        git \
+#                        gnat \
+#                        gtkwave \
+#                        iverilog \
+#                        libglib2.0-0 \
+#                        llvm \
+#                        libtcmalloc-minimal4 \
+#                        locales \
+#                        make \
+#                        build-essential \
+#                        verilator \
+#                        zlib1g-dev
+
+
+# # Set LOCALE to UTF8
+# RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
+#     locale-gen en_US.UTF-8 && \
+#     /usr/sbin/update-locale LANG=en_US.UTF-8
