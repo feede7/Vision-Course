@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:bullseye-slim
 
 RUN apt-get update && apt-get install -y aria2 make git python python3 libglib2.0-0
 
@@ -30,3 +30,7 @@ RUN apt-get install libtcmalloc-minimal4
 ENV LD_PRELOAD=/usr/lib/libtcmalloc_minimal.so.4
 
 ENV PATH=$PATH:/opt/intelFPGA_lite/${QUARTUS_VERSION}/quartus/bin
+
+RUN apt-get install python3 python3-pip
+
+RUN pip3 install hdlmake
