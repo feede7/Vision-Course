@@ -27,6 +27,7 @@ jobs:
 
   hdlmake:
     runs-on: ubuntu-latest
+    container: feede7/hdl-tools:latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -37,10 +38,6 @@ jobs:
           git submodule init
           git submodule update
           tree $GITHUB_WORKSPACE
-      - shell: bash
-        run: |
-          echo "Dependencies"
-          pip3 install hdlmake
       - shell: bash
         working-directory: ./CocoTest/project/lane_sobel/C4
         run: |
@@ -67,7 +64,6 @@ jobs:
       - shell: bash
         working-directory: ./CocoTest/project/lane_sobel/C4
         run: |
-          export PATH=$PATH:/opt/intelFPGA_lite/18.1/quartus/bin
           echo "Build!"
           make
       - name: Upload files

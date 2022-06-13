@@ -9,8 +9,7 @@ RUN apt-get update && apt-get install -y \
     ghdl \
     ffmpeg \
     libsm6 \
-    libxext6 \
-    libtcmalloc-minimal4
+    libxext6
 
 RUN pip3 install -U setuptools
 RUN pip3 install -U scikit-build
@@ -26,4 +25,4 @@ RUN pip3 install -U \
 
 WORKDIR /root
 
-ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libtcmalloc_minimal.so.4
+ENV COCOTB_REDUCED_LOG_FMT True
